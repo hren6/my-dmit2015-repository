@@ -17,12 +17,34 @@
 		<b:jumbotron>
 			<h1>Mortgage Payment Calculator</h1>
 		</b:jumbotron>
-
+		<b:form>
 		<!-- Put your code for assignment 1 below here  -->
+		<b:inputText id="mortgageAmount" label="Mortgage Amount" placeholder="enter amount of mortgage" value="#{loanController.currentLoan.mortgageAmount}"> 
+		<b:focus></b:focus>
+		</b:inputText>
+		<b:inputText id="interestRate" label="Interest Rate" placeholder="enter interet rate" value="#{loanController.currentLoan.annualInterestRate}">
+		<b:focus></b:focus>
+		</b:inputText>
+		
+		<b:inputText id="amortizationPeriod" label="Amorization Period" placeholder="enter amortization period" 
+		value="#{loanController.currentLoan.amortizationPeriod}"
+		type="number" min="1" max="25">
+		</b:inputText>
+		
+		<b:commandButton value="Calculate" ajax="false" update="" actionListener="#{loanController.calculate()}">
+		</b:commandButton>
 
-
-
-
+		<b:messages id="messages"></b:messages>
+		<p></p>
+		<b:dataTable id="Table" page-length="12" value="#{loanController.currentLoanScheduleArray}" var="arr">
+			<b:dataTableColumn label="PayMent Number" value="#{loan.paymentNumber}"></b:dataTableColumn>
+			<b:dataTableColumn label="Interest Paid" value="#{loan.interestPaid}"></b:dataTableColumn>
+			<b:dataTableColumn label="Principal Paid" value="#{loan.principalPaid}"></b:dataTableColumn>
+			<b:dataTableColumn label="Remaining Balance" value="#{loan.remainingBalance}"></b:dataTableColumn>
+		</b:dataTable>
+		
+		<p:chart type="bar" model="#{loanController.barModel}" style="height: 300px" id="barChart"></p:chart>
+		</b:form>
 
 
 			
