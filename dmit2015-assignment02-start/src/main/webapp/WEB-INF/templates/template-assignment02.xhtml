@@ -1,0 +1,87 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:p="http://primefaces.org/ui"  
+	xmlns:b="http://bootsfaces.net/ui">	
+
+<h:head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="${description}"/>
+    <meta name="keywords" content="${keywords}" />
+	<title>${title}</title>  
+			
+	<ui:insert name="externalstyles">
+	</ui:insert>
+	
+	<style>
+		<ui:insert name="internalstyles">	
+		</ui:insert>	
+	</style>
+</h:head>
+
+<h:body style="padding: 60px; min-height: 2000px;">
+
+    <b:navBar brand="Assignment 2" brandHref="#{request.contextPath}/index.xhtml" fixed="top">
+    	<b:navbarLinks>
+        	<b:dropMenu value="Regions">
+            	<b:navLink value="View Regions" href="#{request.contextPath}/protected/viewRegions.xhtml"></b:navLink>
+            	<b:navLink value="New Region" href="#{request.contextPath}/protected/regionDetail.xhtml"></b:navLink>
+        	</b:dropMenu>
+        </b:navbarLinks>
+        
+        <b:navbarLinks>
+        	<b:dropMenu value="Countries">
+            	<b:navLink value="View Countries" href="#{request.contextPath}/protected/viewCountries.xhtml"></b:navLink>
+            	<b:navLink value="New Country" href="#{request.contextPath}/protected/countryDetail.xhtml"></b:navLink>
+        	</b:dropMenu>
+        </b:navbarLinks>
+ 
+         <b:navbarLinks>
+        	<b:dropMenu value="Locations">
+        	    <b:navLink value="View Locations" href="#{request.contextPath}/protected/viewLocations.xhtml"></b:navLink>
+            	<b:navLink value="New Location" href="#{request.contextPath}/protected/locationDetail.xhtml"></b:navLink>
+        	</b:dropMenu>
+        </b:navbarLinks>
+        
+        <b:navbarLinks>
+        	<b:dropMenu value="Departments">
+            	<b:navLink value="View Departments" href="#{request.contextPath}/protected/viewDepartments.xhtml"></b:navLink>
+            	<b:navLink value="New Department" href="#{request.contextPath}/protected/departmentDetail.xhtml"></b:navLink>
+        	</b:dropMenu>
+        </b:navbarLinks>
+        
+        <b:navbarLinks>
+        	<b:dropMenu value="Employees">
+            	<b:navLink value="View Employees" href="#{request.contextPath}/protected/viewEmployees.xhtml"></b:navLink>
+            	<b:navLink value="New Employee" href="#{request.contextPath}/protected/employeeDetail.xhtml"></b:navLink>
+        	</b:dropMenu>
+        </b:navbarLinks>
+        
+    	<b:navbarLinks>
+        	<b:dropMenu value="Jobs">
+            	<b:navLink value="View Jobs" href="#{request.contextPath}/protected/viewJobs.xhtml"></b:navLink>
+            	<b:navLink value="New Job" href="#{request.contextPath}/protected/jobDetail.xhtml"></b:navLink>
+        	</b:dropMenu>
+        </b:navbarLinks>
+        
+    </b:navBar>
+
+    <b:container>
+        <ui:insert name="maincontent">
+        	NO MAIN CONTENT PROVIDED
+        </ui:insert>
+    </b:container>
+                
+</h:body>
+
+</html>
