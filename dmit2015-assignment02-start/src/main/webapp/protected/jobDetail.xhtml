@@ -17,6 +17,24 @@
 		<b:jumbotron>
 			<h1>Job Details</h1>
 		</b:jumbotron>
+		<b:message id="messages"/>
+		<b:form id="createForm">
+			<b:inputText id="jobID" label="Job ID" value="#{newJob.jobId}" placeholder="enter job id"></b:inputText>
+			<b:inputText id="jobTitle" label="Job Title" value="#{newJob.jobTitle}" placeholder="enter job title"></b:inputText>
+			<b:inputText id="maxSalary" label="MaxSalary" value="#{newJob.maxSalary}" placeholder="enter max salary"></b:inputText>
+			<b:inputText id="minSalary" label="MinSalary" value="#{newJob.minSalary}" placeholder="enter min salary"></b:inputText>
+		<f:verbatim>
+			<f:validateWholeBean value="#{newJob}" />
+		</f:verbatim>
+		
+		<o:validateBean value="#{newJob}" />
+		<b:commandButton value="Add" icon-awesome="save" look="primary" 
+		ajax="true" 
+		update="messages createForm:jobID createForm:jobTitle createForm:maxSalary createForm:minSalary" 
+		actionListtener="#{jobCreateController.createNewJob()}">
+		
+		</b:commandButton>
+		</b:form>
 
 
 

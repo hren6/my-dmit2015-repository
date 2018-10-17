@@ -18,6 +18,38 @@
 			<h1>List of Jobs</h1>
 		</b:jumbotron>
 
+		<b:message id="messages"></b:message>
+		<b:form id="form">
+			<b:dataTable value="#{jobs}" var="currentJob">
+				<b:dataTableColumn label="JobID" value="currentJob.jobId"></b:dataTableColumn>
+				<b:dataTableColumn label="JobTitle" value="currentJob.jobTitle"></b:dataTableColumn>
+				<b:dataTableColumn label="MaxSalary" value="currentJob.maxSalary"></b:dataTableColumn>
+				<b:dataTableColumn label="MinSalary" value="currentJob.minSalary"></b:dataTableColumn>
+
+			</b:dataTable>
+		
+		<f:verbatim>
+			<ui:repeat var="currentJob" value="#{jobs}">
+				<b:row>
+					<b:panel title="#{currentJob.jobTitle}">
+						<strong>JobID: </strong>	
+						<h:outputText value="#{currentJob.jobId}" />
+						<br/>
+						<strong>JobTitle: </strong>	
+						<h:outputText value="#{currentJob.jobTitle}" />
+						<br/>
+						<strong>MaxSalary: </strong>
+						<h:outputText value="#{currentJob.maxSalary}" />
+						<br/>
+						<strong>MinSalary: </strong>
+						<h:outputText value="#{currentJob.minSalary}" />
+						
+
+					</b:panel>
+				</b:row>
+			</ui:repeat>
+		</f:verbatim>
+		</b:form>
 
 
 	</ui:define>
