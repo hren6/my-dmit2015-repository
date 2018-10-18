@@ -48,6 +48,8 @@
  
          <b:navbarLinks>
         	<b:dropMenu value="Locations">
+        		<b:navLink value="Delete Location" href="#{request.contextPath}/protected/locationDelete.xhtml"></b:navLink>
+        		<b:navLink value="Edit Location" href="#{request.contextPath}/protected/locationEdit.xhtml"></b:navLink>
         	    <b:navLink value="View Locations" href="#{request.contextPath}/protected/viewLocations.xhtml"></b:navLink>
             	<b:navLink value="New Location" href="#{request.contextPath}/protected/locationDetail.xhtml"></b:navLink>
         	</b:dropMenu>
@@ -69,6 +71,8 @@
         
     	<b:navbarLinks>
         	<b:dropMenu value="Jobs">
+        	<b:naLink value="DeleteJobs" href="#{request.contextPath}/protected/jobDelete.xhtml"></b:naLink>
+        		<b:naLink value="EditJobs" href="#{request.contextPath}/protected/jobEdit.xhtml"></b:naLink>
             	<b:navLink value="View Jobs" href="#{request.contextPath}/protected/viewJobs.xhtml"></b:navLink>
             	<b:navLink value="New Job" href="#{request.contextPath}/protected/jobDetail.xhtml"></b:navLink>
         	</b:dropMenu>
