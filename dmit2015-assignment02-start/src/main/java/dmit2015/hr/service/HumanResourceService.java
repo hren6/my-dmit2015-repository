@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.constraints.NotNull;
 
 import dmit2015.hr.entity.Job;
@@ -48,10 +49,21 @@ public class HumanResourceService {
 		entityManager.remove(existingJob);
 	}
 
+	
+	
 
 	public void addLocation(Location newLocation) {
+		Query currentQuery = entityManager.createQuery("SELECT MAX(l.LocationID) + 1 FROM Location l");
+		int nextLocationId = (int) currentQuery.getSingleResult();
+		newLocation.setLocationId(nextLocationId);
 		entityManager.persist(newLocation);
 		
+	}
+
+
+	public List<Location> finallLocation() {
+		
+		return null;
 	}
 
 }
