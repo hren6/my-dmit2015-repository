@@ -26,10 +26,15 @@ public class OrderEntryService {
 	@Inject
 	private EntityManager entityManager;
 	
-	public Order findOneOrder(long orderId) {
-		// TODO: Complete the code for this method
+	public Order findOneOrder(Long orderId) {
+		Order queryOrderSingleResult = null;
+		try {
+			queryOrderSingleResult = entityManager.createQuery("SELECT o FROM Order o JOIN FETCH o.orderItems WHERE o.orderID = :orderIdValue",Order.class).setParameter("orderIdValue", orderId).getSingleResult();
+		}catch(NoResultException e) {
+			queryOrderSingleResult = null;
+		}
 		
-		return null;
+		return queryOrderSingleResult;
 	}
 	
 	public List<Order> findAllOrderByDateRange(Date startDate, Date endDate) {
