@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence 
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1"
+>
+	<persistence-unit name="primary">
+		<jta-data-source>java:jboss/datasources/OracleOrderEntryDS</jta-data-source>
+		<class>dmit2015.oe.entity.Customer</class>
+		<class>dmit2015.oe.entity.Inventory</class>
+		<class>dmit2015.oe.entity.InventoryPK</class>
+		<class>dmit2015.oe.entity.Order</class>
+		<class>dmit2015.oe.entity.OrderItem</class>
+		<class>dmit2015.oe.entity.OrderItemPK</class>
+		<class>dmit2015.oe.entity.ProductDescription</class>
+		<class>dmit2015.oe.entity.ProductDescriptionPK</class>
+		<class>dmit2015.oe.entity.ProductInformation</class>
+		<class>dmit2015.oe.entity.Warehouse</class>
+		<class>dmit2015.hr.entity.Country</class>
+		<class>dmit2015.hr.entity.Department</class>
+		<class>dmit2015.hr.entity.Employee</class>
+		<class>dmit2015.hr.entity.Job</class>
+		<class>dmit2015.hr.entity.JobHistory</class>
+		<class>dmit2015.hr.entity.JobHistoryPK</class>
+		<class>dmit2015.hr.entity.Location</class>
+		<class>dmit2015.oe.entity.Category</class>
+		<properties>
+			<!-- Properties for Hibernate -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.spatial.connection_finder" value="org.hibernate.spatial.dialect.oracle.OracleSpatial10gDialect" />
+		</properties>
+	</persistence-unit>
+</persistence>

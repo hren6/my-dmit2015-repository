@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:f5="http://xmlns.jcp.org/jsf/passthrough" 	
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:hf="http://highfaces.org"
+	template="/WEB-INF/templates/template-assignment03.xhtml">
+
+	<ui:param name="title" value="#{text['page_viewProductByPattern.title']}" />
+
+	<ui:define name="maincontent">
+	
+		<b:jumbotron>
+			<h1>#{text['page_viewProductByPattern.title']}</h1>
+		</b:jumbotron>
+		
+		<b:messages id="messages" />		
+		
+		<b:form id="queryForm" >
+		
+			<b:inputText id="searchValue"
+				value="#{productInformationQueryController.queryPattern}"
+				label="Product Name or Description"
+				placeholder="enter product name or description">
+				<b:focus />
+			</b:inputText>
+		
+			<b:commandButton value="Search"
+				icon-awesome="search"
+				look="info"
+				ajax="true"
+				update="queryResultListPanel queryForm:querySingleResultPanel messages"
+				actionListener="#{productInformationQueryController.findProductsByTerm()}">
+			</b:commandButton>
+			<b:commandButton value="Cancel"
+				icon-awesome="ban"
+				look="default"
+				immediate="true"
+				update="queryForm:queryResultListPanel queryForm:querySingleResultPanel messages"
+				actionListener="#{productInformationQueryController.cancel()}">
+			</b:commandButton>
+			
+			<p:outputPanel id="queryResultListPanel">
+			
+				<b:panel title="ProductInformations by Date Range" 
+					rendered="#{(productInformationQueryController.queryProductInformationResultList != null) and (productInformationQueryController.queryProductInformationSingleResult == null)}">
+				
+	
+				</b:panel>
+			</p:outputPanel>
+					
+			<p:outputPanel id="querySingleResultPanel">
+				<b:panel title="ProductInformation Details" rendered="#{not empty productInformationQueryController.queryProductInformationSingleResult}">
+						<b:selectOneMenu id="langauges" 
+							label="Select translation language"
+							value="#{productInformationQueryController.selectedLanguageId}"
+							update="productName productDescription"
+							onchange="ajax:productInformationQueryController.changeLanguage()">						
+							<f:selectItems value="#{nlsLanguageController.languageMap.entrySet()}" 
+								var="entry"
+								itemLabel="#{entry.value}"
+								itemValue="#{entry.key}"/>
+						</b:selectOneMenu>
+	
+				
+				</b:panel>
+			
+			</p:outputPanel>
+	
+		</b:form>
+
+	</ui:define>
+
+</ui:composition>
