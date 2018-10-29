@@ -29,7 +29,7 @@ public class OrderEntryService {
 	public Order findOneOrder(Long orderId) {
 		Order queryOrderSingleResult = null;
 		try {
-			queryOrderSingleResult = entityManager.createQuery("SELECT o FROM Order o JOIN FETCH o.orderItems WHERE o.orderID = :orderIdValue",Order.class).setParameter("orderIdValue", orderId).getSingleResult();
+			queryOrderSingleResult = entityManager.createQuery("SELECT o FROM Order o JOIN FETCH o.orderItems WHERE o.orderId = :orderIdValue",Order.class).setParameter("orderIdValue", orderId).getSingleResult();
 		}catch(NoResultException e) {
 			queryOrderSingleResult = null;
 		}

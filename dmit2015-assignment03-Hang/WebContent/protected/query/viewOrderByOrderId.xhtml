@@ -51,12 +51,14 @@
 					<b:row>
 						<b:column span="6">
 							<b:panel title="Customer Details" collapsible="false" style="height: 250px">
-								<strong>>
+								<strong>
 									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custLastName}, #{orderQueryController.queryOrderSingleResult.customer.custFirstName}" /><br />
-									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress}" /><br />
-									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custGeoLocation}" /><br />
-									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.nlsTerritory}" /><br />
-									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.phoneNumbers}" /><br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.streetAddress}" /><br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.city}" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.stateProvince}" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.postalCode}" /><br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.countryId}" /><br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.phoneNumbers[0]}" /><br />
 								</strong>
 							</b:panel>
 						</b:column>
@@ -81,7 +83,7 @@
 									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderStatus}" />
 									
 									<h:outputLabel value="Sales Rep" />
-									<h:outputText value="#{orderQueryController.queryOrderSingleResult.salesRep}" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.salesRep.lastName} #{orderQueryController.queryOrderSingleResult.salesRep.firstName}" />
 									
 									<h:outputLabel value="Order Total" />
 									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderTotal}" >
@@ -102,10 +104,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="item" items=#{orderQueryController.queryOrderSingleResult.orderItems}>
+							<c:forEach var="item" items="#{orderQueryController.queryOrderSingleResult.orderItems}">
 								<tr>
-									<td>#{item.productInformation.productDescription}</td>
-									<td>#{item.productInformation.productId]}</td>
+									<td>#{item.productInformation.productName}<br /> #{item.productInformation.productId}</td>
+									<td class="text-right">
+										<h:outputText value="#{item.unitPrice}" >
+											<f:convertNumber type="currency"/>
+										</h:outputText>
+									</td>
+									<td class="text-right">#{item.quantity}</td>
+									<td class="text-right">
+										<h:outputText value="#{item.quantity * item.unitPrice}" >
+											<f:convertNumber type="currency"/>
+										</h:outputText>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
