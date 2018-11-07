@@ -23,7 +23,43 @@
 		<b:messages id="messages" />
 		
 		<b:form>	
+			<p:outputLabel for="parentCategory" value="Parent Category:" />
+  			<h:selectOneMenu id="parentCategory" value="#{categorySalesReportController.selectedCategoryId}" 
+  				styleClass="form-control"
+				label="Parent Category">
+				<p:ajax event="change" update="reportOutputPanel" listener="#{categorySalesReportController.generateReport()}" />
+				<f:selectItems value="#{categorySalesReportController.retreiveOnlineCatalogCategories()}" var="category"
+					itemLabel="#{category.categoryName}"
+					itemValue="#{category.categoryId}" />
+  			</h:selectOneMenu>
+  			
+  			<p:outputLabel for="year" value="Report Year:" />
+  			<h:selectOneMenu id="year" value="#{categorySalesReportController.selectedYear}" 
+  				styleClass="form-control"
+				label="Report Year">
+				<p:ajax event="change" update="reportOutputPanel" listener="#{categorySalesReportController.generateReport()}" />
+				<f:selectItem itemLabel="All Years" itemValue="" />
+				<f:selectItems value="#{categorySalesReportController.retreiveYearsWithOrders()}" var="year"
+					itemLabel="#{year}"
+					itemValue="#{year}" />
+  			</h:selectOneMenu>
+  			
+  			<p:outputPanel id="reportOutputPanel">
+  				<hf:chart id="barchart" type="bar" title="#{categorySalesReportController.reportTitle}"
+					height="600px"
+					yaxisLabel="Sales Total" xaxisLabel="Category Name">
+					<hf:chartSerie name="Category Sales" 
+						value="#{categorySalesReportController.categorySales}" var="point" 
+						point="#{point.categorySalesTotal}" 
+						tickLabel="#{point.categoryName}" 		
+						dataLabel="{point.y}"	
+						colorByPoint="true"
+					/>
+				</hf:chart>
+  			
+  			</p:outputPanel>
 
+  			
 
 
 		</b:form>

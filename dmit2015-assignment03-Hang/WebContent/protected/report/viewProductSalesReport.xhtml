@@ -25,7 +25,45 @@
 		<b:messages id="messages" />
 		
 		<b:form>	
-		
+		<p:outputLabel value="Max Result:" />
+			<b:panelGrid size="xs" columns="4">
+			    <b:radiobutton update="@form" onclick="ajax:productSalesReportController.generateReport()" value="#{productSalesReportController.maxResult}" itemLabel="5" itemValue="5" />
+			    <b:radiobutton update="@form" value="#{productSalesReportController.maxResult}" itemLabel="10" itemValue="10" />
+			    <b:radiobutton update="@form" value="#{productSalesReportController.maxResult}" itemLabel="15" itemValue="15" />
+			    <b:radiobutton update="@form" value="#{productSalesReportController.maxResult}" itemLabel="20" itemValue="20"/>
+		  	</b:panelGrid>
+		  	<br />
+			<p:outputLabel for="year" value="Report Year:" />
+  			<h:selectOneMenu id="year" value="#{productSalesReportController.selectedYear}" 
+  				styleClass="form-control"
+				label="Report Year"
+				>
+				<p:ajax event="change" update="@form" listener="#{productSalesReportController.generateReport()}" />
+				<f:selectItem itemLabel="All Years" itemValue="" />
+				<f:selectItems value="#{productSalesReportController.retreiveYearsWithOrders()}" var="year"
+					itemLabel="#{year}"
+					itemValue="#{year}" />
+  			</h:selectOneMenu>
+			<br />
+			<p:outputPanel id="reportOutputPanel">
+				<b:dataTable value="#{productSalesReportController.productSales}"
+					paginated='false'
+					searching='false'
+	               var="sale"
+	               excel="true"
+	               csv="true"
+	               pdf="true"
+	               columnVisibility="true"
+	               copy="true"
+	               print="true"
+	               row-style-class="#{car.enginePower>100?'light-power':'light'}, #{car.enginePower>100?'dark-power':'dark'} ">
+			    <b:dataTableColumn value="#{sale.categoryName}" />
+			    <b:dataTableColumn value="#{sale.productId}" />
+			    <b:dataTableColumn value="#{sale.productName}" />
+			    <b:dataTableColumn value="#{sale.productSalesTotal}"/>
+			    <b:dataTableColumn value="#{sale.quantityCount}" />
+			   </b:dataTable>
+			</p:outputPanel>
 
 		
 		</b:form>

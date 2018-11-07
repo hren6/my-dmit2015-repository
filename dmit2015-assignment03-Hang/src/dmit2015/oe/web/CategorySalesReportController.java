@@ -64,7 +64,20 @@ public class CategorySalesReportController implements Serializable {
 	}
 		
 	public void generateReport() {
-		// TODO: Complete the code for this method
+		Category defaultCategory = oeService.findOneCategory(selectedCategoryId);	
+		
+		if(selectedYear == null) {
+			categorySales = oeService.findCategorSalesForParentCategoryId(selectedCategoryId);
+			reportTitle = "All Years " + defaultCategory.getCategoryName() + " Sales";
+			
+		}
+		if(selectedYear != null)
+		{
+			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
+			reportTitle = selectedYear + " " + defaultCategory.getCategoryName() + " Sales";
+		}
+		
+	
 		
 	}
 	

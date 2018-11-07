@@ -23,7 +23,31 @@
 		<b:messages id="messages" />
 		
 		<b:form>	
+			<p:outputLabel for="year" value="Report Year:" />
+  			<h:selectOneMenu id="year" value="#{onlineCatalogCategorySalesReportController.selectedYear}" 
+  				styleClass="form-control"
+				label="Report Year"
+				>
+				<p:ajax event="change" update="reportOutputPanel" listener="#{onlineCatalogCategorySalesReportController.generateReport()}" />
+				<f:selectItem itemLabel="All Years" itemValue="" />
+				<f:selectItems value="#{onlineCatalogCategorySalesReportController.retreiveYearsWithOrders()}" var="year"
+					itemLabel="#{year}"
+					itemValue="#{year}" />
+  			</h:selectOneMenu>
 
+			<p:outputPanel id="reportOutputPanel">
+				<hf:chart id="piechart" type="pie" title="#{onlineCatalogCategorySalesReportController.reportTitle}"
+					height="600px"
+					yaxisLabel="Sales Total" xaxisLabel="Category Name">
+					<hf:chartSerie name="Category Sales" 
+						value="#{onlineCatalogCategorySalesReportController.categorySales}" var="point" 
+						point="#{point.categorySalesTotal}" 
+						tickLabel="#{point.categoryName}" 		
+						colorByPoint="true"
+						dataLabel="{point.name} ({point.percentage:.1f}%) ({point.y})"	
+					/>
+				</hf:chart>
+			</p:outputPanel>
 
 		
 		</b:form>

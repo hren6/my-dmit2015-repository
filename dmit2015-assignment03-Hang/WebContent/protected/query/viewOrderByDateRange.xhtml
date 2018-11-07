@@ -60,7 +60,67 @@
 			<p:outputPanel id="queryResultListPanel">
 			
 				<b:panel title="Orders by Date Range" rendered="#{(orderQueryController.queryOrderResultList != null) and (orderQueryController.queryOrderSingleResult == null)}">
-				
+				<b:dataTable id="ordersByDateRangeTable"
+						value="#{orderQueryController.queryOrderResultList}"
+						var="order"
+						rendered="true"
+						searching="true"
+						paginated="true">
+						
+						<b:dataTableColumn value="#{order.orderId}">
+		
+						</b:dataTableColumn>
+		
+						<b:dataTableColumn styleClass="text-right">
+							<f:facet name="header">
+								Price
+							</f:facet>
+							<h:outputText value="#{order.orderDate}">
+								<f:convertDateTime pattern="MMMM dd, yyyy"/>
+							</h:outputText>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn styleClass="text-right">
+							<f:facet name="header">
+								Order Total
+							</f:facet>
+							<h:outputText value="#{order.orderTotal}">
+								<f:convertNumber type="currency" currencySymbol="$" locale="en_US"/>
+							</h:outputText>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{order.orderMode}">
+		
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{order.orderStatus}">
+		
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{order.customer.custFirstName} #{order.customer.custLastName}">
+							<f:facet name="header">
+								Customer Name
+							</f:facet>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{order.salesRep.firstName} #{order.salesRep.lastName}">
+							<f:facet name="header">
+								Sales Rep
+							</f:facet>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn>
+							<f:facet name="header">
+								Action
+							</f:facet>
+							<b:commandButton value="view details" 
+								look="link"
+								actionListener="#{orderQueryController.findOrder(order.orderId)}"
+								ajax="true" update="queryForm:querySingleResultPanel queryForm:queryResultListPanel">
+							</b:commandButton>
+						</b:dataTableColumn>
+								
+					</b:dataTable>
 					
 				</b:panel>
 			</p:outputPanel>
@@ -68,8 +128,87 @@
 			<p:outputPanel id="querySingleResultPanel">
 			
 				<b:panel title="Order Details" rendered="#{(orderQueryController.queryOrderSingleResult != null)}">
-				
+				<b:row>
+						<b:column span="6">
+							<b:panel title="Customer Details" collapsible="false" style="height: 250px">
+								<strong>
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custFirstName} #{orderQueryController.queryOrderSingleResult.customer.custLastName}" /> <br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.streetAddress}" /> <br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.city}, #{orderQueryController.queryOrderSingleResult.customer.custAddress.stateProvince} #{orderQueryController.queryOrderSingleResult.customer.custAddress.postalCode}" /> <br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.countryId}" /> <br />
+									<ui:repeat var="phone" value="#{orderQueryController.queryOrderSingleResult.customer.phoneNumbers}">
+										<h:outputText
+										value="#{phone}" />
+									</ui:repeat>		
+								</strong>
+							</b:panel>
+						</b:column>
+						<b:column span="6">						
+							<b:panel title="Order Details" collapsible="false" style="height: 250px">
+								<b:panelGrid colSpans="4,8">
+									<h:outputLabel value="CustomerID" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.customerId}" />		
+									
+									<h:outputLabel value="OrderID" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderId}" />		
+									
+									<h:outputLabel value="Order Date" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderDate}">
+										<f:convertDateTime pattern="MMMM dd, yyyy"/>
+									</h:outputText>			
+									
+									<h:outputLabel value="Shipped Date" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderMode}">
+									</h:outputText>	
+									
+									<h:outputLabel value="Order Status" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderStatus}">
+									</h:outputText>	
+									
+									<h:outputLabel value="Sales Rep" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.salesRep.firstName} #{orderQueryController.queryOrderSingleResult.salesRep.lastName}" />									
+								
+									<h:outputLabel value="Freight" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderTotal}">
+										<f:convertNumber type="currency" currencySymbol="$" locale="en_US"/>
+									</h:outputText>
+								</b:panelGrid>													
+							</b:panel>
+						</b:column>
+					</b:row>
 
+					<br />
+					<table class="table table-bordered table-striped" id="bootsfacesTable">
+						<thead class="thead-inverse">
+							<tr>
+								<th>Item</th>
+								<th class="text-right">Price</th>
+								<th class="text-right">Qty</th>
+								<th class="text-right">Sub Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="item" items="#{orderQueryController.queryOrderSingleResult.orderItems}">
+								<tr>
+									<td><b>#{item.productInformation.productName}</b> <br /> item# #{item.productInformation.productId}</td>
+									<td class="text-right">
+										<h:outputText value="#{item.unitPrice}">
+											<f:convertNumber type="currency" currencySymbol="$" locale="en_US"/>
+										</h:outputText>
+									</td>
+									<td class="text-right">#{item.quantity}</td>
+									<td class="text-right">
+										<h:outputText value="#{item.unitPrice * item.quantity}">
+											<f:convertNumber type="currency" currencySymbol="$" locale="en_US"/>
+										</h:outputText>
+									</td>
+									
+								</tr>
+							</c:forEach>
+						</tbody>
+						
+					</table>
+					
 				</b:panel>
 			
 			</p:outputPanel>

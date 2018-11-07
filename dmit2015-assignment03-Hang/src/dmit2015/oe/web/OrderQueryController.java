@@ -113,17 +113,48 @@ public class OrderQueryController implements Serializable {
 	}
 	
 	public void findOrdersByDateRange() {
-		// TODO: Complete the code for this method
+		try {
+			queryOrderResultList = oeService.findAllOrderByDateRange(queryStartDate, queryEndDate);
+			if( queryOrderResultList == null || queryOrderResultList.size() == 0) {
+				Messages.addGlobalWarn("No order found between \"{0}\" and \"{1}\" ", queryStartDate,queryEndDate);
+			} else {
+				Messages.addGlobalInfo("Found {0} order(s) from {1} to {2}", queryOrderResultList.size(),queryStartDate,queryEndDate);
+			}		
+		}catch(Exception e) {
+			Messages.addGlobalError("Unable to perform search.");
+		}
 		
 	}
 	
 	public void findCustomer() {
-		// TODO: Complete the code for this method
+		try {
+			queryCustomerSingleResult = oeService.findOneCustomerByUniqueValue(queryCustomerValue);
+			if(queryCustomerSingleResult == null) {
+				Messages.addGlobalWarn("No customer found by using \"{0}\"", queryCustomerValue);
+			}
+			else {
+				Messages.addGlobalInfo("Found 1 result.");
+			}
+			
+		}catch(Exception e) {
+			Messages.addGlobalError("Unable to perform search.");
+			Messages.addGlobalError(e.getMessage());
+		}
+		
 		
 	}
 	
 	public void findOrdersByCustomer() {
-		// TODO: Complete the code for this method
+		try {
+			queryOrderResultList = oeService.findAllOrderByCustomerId(queryCustomerSingleResult.getCustomerId());
+			if( queryOrderResultList == null || queryOrderResultList.size() == 0) {
+				Messages.addGlobalWarn("No order found between \"{0}\" and \"{1}\" ", queryStartDate,queryEndDate);
+			} else {
+				Messages.addGlobalInfo("We found {0} order(s)", queryOrderResultList.size());
+			}		
+		}catch(Exception e) {
+			Messages.addGlobalError("Unable to perform search.");
+		}
 		
 	}
 	
